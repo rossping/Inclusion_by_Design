@@ -1,0 +1,64 @@
+---
+title: "Final_Presentation"
+author: "Ross_Pingatore"
+date: "4/26/2021"
+output: beamer_presentation
+---
+```{r}
+library(readxl)
+
+
+read_xlsx("2010_Election_Results_TNT_clean.xlsx") -> `2010_Election_results_TNT`
+
+read_xlsx("2010_Census_TNT.xlsx") -> `2010_Census_TNT`
+
+`2010_Election_results_TNT`$Year <- as.character(`2010_Election_results_TNT`$Year)
+```
+
+
+```{r}
+library(tidyverse)
+
+`2010_Election_results_TNT`%>%summarize_if(is.numeric, sum, na.rm=TRUE) -> community_sum
+cbind(community_sum, electoral_district = 'Arima', year = '2010')
+```
+
+```{r}
+`2010_final_TNT` <- tibble(
+  electoral_distric = character(),
+  year = character(),
+  poll_location = character(),
+  PNM = numeric(),
+  UNC = numeric(),
+  COP = numeric(),
+  NNV = numeric(),
+  John_IND = numeric(),
+  rejected_ballots = numeric(),
+  total_ballots_cast = numeric(),
+  registered_voters = numeric())
+
+```
+
+```{r}
+`2010_final_TNT` <- tibble() 
+
+for(index in 1: nrow(`2010_Census_TNT`)){
+  census_community = `2010_Census_TNT`$community[index]
+  vote_community_df = tibble()
+
+  for (index_2 in 1:nrow(`2010_Election_results_TNT`)) {
+    vote_community = `2010_Election_results_TNT`$Actual_Poll_Location[index_2]
+    
+    if(vote_community == census_community){
+      vote_community_df <- rbind(vote_community_df, `2010_Election_results_TNT`[index_2,])
+      print(vote_community)
+     
+    }
+  }
+
+  
+}
+
+
+```
+
