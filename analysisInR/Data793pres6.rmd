@@ -1,0 +1,42 @@
+```{r}
+library(tidyverse)
+library(ggplot2)
+
+election <- read_csv(file = "../2010_Election_Results_TNT_clean.csv")
+
+electionHead <- head(election,500) %>% drop_na()
+
+```
+
+```{r}
+electionHead
+```
+
+```{r}
+sum(electionHead$Rejected_Ballots)
+
+sum(electionHead$Tot_Ballots_Cast)
+
+electionHead$PNM <- as.double(electionHead$Registered_Voters)
+
+sum(electionHead$PNM)
+
+
+slices <- c(sum(electionHead$COP), sum(electionHead$UNC),sum(electionHead$PNM))
+lbls <- c("Rejected_Ballots", "Tot_Ballots_Cast", "Registered_Voters")
+pie(slices, labels = lbls, main="Pie Chart of 500 Vote Sample Voting Patterns")
+
+
+
+
+```
+
+```{r}
+
+ggplot(data = electionHead, aes(x=Electoral_Dist)) +
+  geom_bar() + scale_x_discrete(labels = abbreviate)
+
+ggplot(data = electionHead, aes(x=Poll_Location)) +
+  geom_bar() + scale_x_discrete(labels = abbreviate)
+```
+
