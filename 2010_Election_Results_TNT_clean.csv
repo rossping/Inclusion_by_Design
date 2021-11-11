@@ -1,4 +1,4 @@
-Electoral_Dist,Year,Poll_Div,Poll_Station,Poll_Road,Poll_Location ,Actual_Poll_Location,PNM,UNC,COP,TOP,STAR,NNV,John_IND,Rejected_Ballots,Tot_Ballots_Cast,Registered_Voters
+Electoral_Dist,Year,Poll_Div,Poll_Station,Poll_Road,Poll_Location ,Census_Poll_Location,PNM,UNC,COP,TOP,STAR,NNV,John_IND,Rejected_Ballots,Tot_Ballots_Cast,Registered_Voters
 Arima,2010,1910,BLANCHISSEUSE SECONDARY SCHOOL,"PARIA MAIN ROAD
 ",LA FILLETTE,BLANCHISSEUSE,121,0,50,0,0,3,0,0,174,293
 Arima,2010,1915 & 1925,BLANCHISSEUSE GOV'T PRIMARY SCHOOL,LP28 PARIA MAIN ROAD UPPER VILLAGE BLANCHISSEUSE,BLANCHISSEUSE,BLANCHISSEUSE,46,0,34,0,0,1,0,1,82,166
@@ -2166,15 +2166,15 @@ Tunapuna,2010,,El Dorado West Secondary School,,,,139,0,261,0,,,,,,
 Tunapuna,2010,,Tunapuna Secondary School,,,,81,0,250,0,,,,,,
 Tunapuna,2010,,Tunapuna Secondary School,,,,163,0,98,0,,,,,,
 Tunapuna,2010,,Tunapuna Secondary School,,,,130,0,107,0,,,,,,
-Tunapuna,2010,,El Dorado East Secondary Schol,,,,202,0,128,0,,,,,,
-Tunapuna,2010,,El Dorado East Secondary Schol,,,,181,0,217,0,,,,,,
-Tunapuna,2010,,El Dorado East Secondary Schol,,,,151,0,307,0,,,,,,
-Tunapuna,2010,,El Dorado East Secondary Schol,,,,123,0,370,0,,,,,,
-Tunapuna,2010,,El Dorado East Secondary Schol,,,,54,0,349,0,,,,,,
+Tunapuna,2010,,El Dorado East Secondary School,,,,202,0,128,0,,,,,,
+Tunapuna,2010,,El Dorado East Secondary School,,,,181,0,217,0,,,,,,
+Tunapuna,2010,,El Dorado East Secondary School,,,,151,0,307,0,,,,,,
+Tunapuna,2010,,El Dorado East Secondary School,,,,123,0,370,0,,,,,,
+Tunapuna,2010,,El Dorado East Secondary School,,,,54,0,349,0,,,,,,
 Tunapuna,2010,,St. Mary's Children Home A.C. Primary,,,,167,0,197,0,,,,,,
 Tunapuna,2010,,St. Mary's Children Home A.C. Primary,,,,142,0,247,0,,,,,,
 Tunapuna,2010,,St. Mary's Children Home A.C. Primary,,,,113,0,248,0,,,,,,
-Tunapuna,2010,,El Dorado East Secondary Schol,,,,23,0,104,0,,,,,,
+Tunapuna,2010,,El Dorado East Secondary School,,,,23,0,104,0,,,,,,
 Tunapuna,2010,,Maracas Presbyterian School,,,,226,0,153,0,,,,,,
 Tunapuna,2010,,Maracas Presbyterian School,,,,204,0,159,0,,,,,,
 Tunapuna,2010,,Maracas Presbyterian School,,,,119,0,219,0,,,,,,
