@@ -4,6 +4,8 @@ library(tidyverse)
 census <- read_csv(file = "censusData2010.csv")
 
 election <- read_csv(file = "2010_Election_Results_TNT_clean.csv")
+
+options(scipen = 100, digits = 4)
 ```
 
 ```{r}
@@ -38,6 +40,102 @@ mergedTrinidad
 ```
 
 ```{r}
-districtVoting$Census_Poll_Location[!districtVoting$Census_Poll_Location %in% mergedTrinidad$Census_Poll_Location]
+# districtVoting$Census_Poll_Location[!districtVoting$Census_Poll_Location %in% mergedTrinidad$Census_Poll_Location]
 ```
+
+
+```{r}
+mergedTrinidad %>%
+  select(
+Census_Poll_Location, PNM, UNC, COP, TOP, percent_African, percent_Indian, percent_Mixed, total) %>%
+  filter(percent_African>0, PNM+UNC+COP+TOP < total) -> ecologicalInf
+
+ecologicalInf$total <- round(ecologicalInf$total, 0)
+
+ecologicalInf
+
+
+```
+
+
+```{r}
+ecologicalInf$afroVotePNM <- ecologicalInf$PNM * ecologicalInf$percent_African
+ecologicalInf$afroVoteUNC <- ecologicalInf$UNC * ecologicalInf$percent_African
+ecologicalInf$afroVoteCOP <- ecologicalInf$COP * ecologicalInf$percent_African
+ecologicalInf$afroVoteTOP <- ecologicalInf$TOP * ecologicalInf$percent_African
+
+
+ecologicalInf$indianVotePNM <- ecologicalInf$PNM * ecologicalInf$percent_Indian
+ecologicalInf$indianVoteUNC <- ecologicalInf$UNC * ecologicalInf$percent_Indian
+ecologicalInf$indianVoteCOP <- ecologicalInf$COP * ecologicalInf$percent_Indian
+ecologicalInf$indianVoteTOP <- ecologicalInf$TOP * ecologicalInf$percent_Indian
+
+
+ecologicalInf$mixedVotePNM <- ecologicalInf$PNM * ecologicalInf$percent_Mixed
+ecologicalInf$mixedVoteUNC <- ecologicalInf$UNC * ecologicalInf$percent_Mixed
+ecologicalInf$mixedVoteCOP <- ecologicalInf$COP * ecologicalInf$percent_Mixed
+ecologicalInf$mixedVoteTOP <- ecologicalInf$TOP * ecologicalInf$percent_Mixed
+
+
+ecologicalInf$afroVotePNM <- ecologicalInf$PNM * ecologicalInf$percent_African
+ecologicalInf$afroVoteUNC <- ecologicalInf$UNC * ecologicalInf$percent_African
+ecologicalInf$afroVoteCOP <- ecologicalInf$COP * ecologicalInf$percent_African
+ecologicalInf$afroVoteTOP <- ecologicalInf$TOP * ecologicalInf$percent_African
+
+
+
+
+```
+
+```{r}
+ecologicalInf
+```
+
+```{r}
+party <- c("PNM", "UNC", "COP", "TOP")
+
+afroVoteBreakdown <- c(sum(ecologicalInf$afroVotePNM),sum(ecologicalInf$afroVoteUNC),sum(ecologicalInf$afroVoteCOP),sum(ecologicalInf$afroVoteTOP))
+
+indianVoteBreakdown <- c(sum(ecologicalInf$indianVotePNM),sum(ecologicalInf$indianVoteUNC),sum(ecologicalInf$indianVoteCOP),sum(ecologicalInf$indianVoteTOP))
+
+mixedVoteBreakdown <- c(sum(ecologicalInf$mixedVotePNM),sum(ecologicalInf$mixedVoteUNC),sum(ecologicalInf$mixedVoteCOP),sum(ecologicalInf$mixedVoteTOP))
+
+piePercentAfro <- round(100*afroVoteBreakdown/sum(afroVoteBreakdown),1)
+
+piePercentIndo <- round(100*indianVoteBreakdown/sum(indianVoteBreakdown),1)
+
+
+piePercentMixed <- round(100*mixedVoteBreakdown/sum(mixedVoteBreakdown),1)
+
+lbls1 <- paste(party, piePercentAfro) 
+lbls1 <- paste(lbls1,"%",sep="")
+
+lbls2 <- paste(party, piePercentIndo) 
+lbls2 <- paste(lbls2,"%",sep="")
+
+lbls3 <- paste(party, piePercentMixed) 
+lbls3 <- paste(lbls3,"%",sep="")
+
+```
+
+```{r}
+pie(afroVoteBreakdown, labels=lbls1, col=rainbow(length(lbls1)), main = "Party Vote Breakdown of Afro-Caribbean Voters")
+
+pie(indianVoteBreakdown, labels=lbls2, col=rainbow(length(lbls2)), main = "Party Vote Breakdown of Indo-Caribbean Voters")
+
+pie(mixedVoteBreakdown, labels=lbls3, col=rainbow(length(lbls3)), main = "Party Vote Breakdown of Mixed Race Voters")
+```
+
+```{r}
+# Pie Chart with Percentages
+slices <- c(10, 12, 4, 16, 8)
+lbls <- c("US", "UK", "Australia", "Germany", "France")
+pct <- round(slices/sum(slices)*100)
+lbls <- paste(lbls, pct) # add percents to labels
+lbls <- paste(lbls,"%",sep="") # ad % to labels
+pie(slices,labels = lbls, col=rainbow(length(lbls)),
+   main="Pie Chart of Countries")
+```
+
+
 
