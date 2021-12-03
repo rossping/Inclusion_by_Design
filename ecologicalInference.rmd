@@ -1,0 +1,43 @@
+```{r, message = FALSE}
+library(tidyverse)
+
+census <- read_csv(file = "censusData2010.csv")
+
+election <- read_csv(file = "2010_Election_Results_TNT_clean.csv")
+```
+
+```{r}
+census <- census[order(census$Census_Poll_Location),]
+
+census
+```
+
+```{r}
+election
+```
+
+```{r}
+election %>%
+  select (Census_Poll_Location, PNM, UNC, COP, TOP) %>%
+  group_by(Census_Poll_Location) %>%
+  summarise(PNM = sum(PNM), UNC = sum(UNC), COP = sum(COP), TOP = sum(TOP)) -> districtVoting 
+
+districtVoting
+
+merge(districtVoting, census, by=c("Census_Poll_Location","Census_Poll_Location"))
+
+
+
+
+```
+
+```{r}
+merge(districtVoting, census, by=c("Census_Poll_Location","Census_Poll_Location")) -> mergedTrinidad
+
+mergedTrinidad
+```
+
+```{r}
+districtVoting$Census_Poll_Location[!districtVoting$Census_Poll_Location %in% mergedTrinidad$Census_Poll_Location]
+```
+
