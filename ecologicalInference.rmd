@@ -256,11 +256,11 @@ pie(expectedSeats, labels=lblsExpected, col=rainbow(length(ethnicities)), main =
 censusRepresentation <- c(.363, .376, .242)
 
 
-censusAfroSeat <- censusRepresentation[1]*41
+censusAfroSeat <- censusRepresentation[1]*41.3
 
-censusIndoSeat <- censusRepresentation[2]*41
+censusIndoSeat <- censusRepresentation[2]*41.3
 
-censusMixedSeat <- censusRepresentation[3]*41
+censusMixedSeat <- censusRepresentation[3]*41.3
 
 censusAfroSeat
 
