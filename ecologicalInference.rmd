@@ -37,6 +37,10 @@ merge(districtVoting, census, by=c("Census_Poll_Location","Census_Poll_Location"
 merge(districtVoting, census, by=c("Census_Poll_Location","Census_Poll_Location")) -> mergedTrinidad
 
 mergedTrinidad
+
+countryPercentAfrican <- sum(mergedTrinidad$African)/sum(mergedTrinidad$total)
+
+countryPercentAfrican
 ```
 
 ```{r}
@@ -119,6 +123,8 @@ lbls3 <- paste(lbls3,"%",sep="")
 ```
 
 ```{r}
+# say in slide from 175 random districts
+
 pie(afroVoteBreakdown, labels=lbls1, col=rainbow(length(lbls1)), main = "Party Vote Breakdown of Afro-Caribbean Voters")
 
 pie(indianVoteBreakdown, labels=lbls2, col=rainbow(length(lbls2)), main = "Party Vote Breakdown of Indo-Caribbean Voters")
@@ -127,15 +133,165 @@ pie(mixedVoteBreakdown, labels=lbls3, col=rainbow(length(lbls3)), main = "Party 
 ```
 
 ```{r}
-# Pie Chart with Percentages
-slices <- c(10, 12, 4, 16, 8)
-lbls <- c("US", "UK", "Australia", "Germany", "France")
-pct <- round(slices/sum(slices)*100)
-lbls <- paste(lbls, pct) # add percents to labels
-lbls <- paste(lbls,"%",sep="") # ad % to labels
-pie(slices,labels = lbls, col=rainbow(length(lbls)),
-   main="Pie Chart of Countries")
+totalVotes <- sum(ecologicalInf$PNM) + sum(ecologicalInf$UNC) + sum(ecologicalInf$COP) + sum(ecologicalInf$TOP)
+
+totalVotes
+
+votePercentagesParty <- c(sum(ecologicalInf$PNM)/totalVotes, sum(ecologicalInf$UNC)/totalVotes, sum(ecologicalInf$COP)/totalVotes, sum(ecologicalInf$TOP)/totalVotes)
+
+barplot(votePercentagesParty, names.arg = party, xlab = "Party", ylab = "Share of Vote", main = "Vote Share Per Party", col=rainbow(length(lbls1)))
 ```
 
 
+```{r}
+supportPNMTotal <- sum(ecologicalInf$afroVotePNM) + sum(ecologicalInf$indianVotePNM) + sum(ecologicalInf$mixedVotePNM)
 
+supportUNCTotal <- sum(ecologicalInf$afroVoteUNC) + sum(ecologicalInf$indianVoteUNC) + sum(ecologicalInf$mixedVoteUNC)
+
+supportCOPTotal <- sum(ecologicalInf$afroVoteCOP) + sum(ecologicalInf$indianVoteCOP) + sum(ecologicalInf$mixedVoteCOP)
+
+supportTOPTotal <- sum(ecologicalInf$afroVoteTOP) + sum(ecologicalInf$indianVoteTOP) + sum(ecologicalInf$mixedVoteTOP)
+
+
+
+supportPNM <- c(sum(ecologicalInf$afroVotePNM)/supportPNMTotal, sum(ecologicalInf$indianVotePNM)/supportPNMTotal, sum(ecologicalInf$mixedVotePNM)/supportPNMTotal)
+
+supportPNM <- round(supportPNM,3)
+
+
+supportUNC <- c(sum(ecologicalInf$afroVoteUNC)/supportUNCTotal, sum(ecologicalInf$indianVoteUNC)/supportUNCTotal, sum(ecologicalInf$mixedVoteUNC)/supportUNCTotal)
+
+supportUNC <- round(supportUNC,3)
+
+
+supportCOP <- c(sum(ecologicalInf$afroVoteCOP)/supportCOPTotal, sum(ecologicalInf$indianVoteCOP)/supportCOPTotal, sum(ecologicalInf$mixedVoteCOP)/supportCOPTotal)
+
+supportCOP <- round(supportCOP,3)
+
+
+supportTOP <- c(sum(ecologicalInf$afroVoteTOP)/supportTOPTotal, sum(ecologicalInf$indianVoteTOP)/supportTOPTotal, sum(ecologicalInf$mixedVoteTOP)/supportTOPTotal)
+
+supportTOP <- round(supportTOP,3)
+
+
+
+
+```
+
+```{r}
+ethnicities <- c("Afro-Caribbean", "Indian-Caribbean", "Mixed-Race")
+```
+
+```{r}
+lblsPNM <- paste(ethnicities, supportPNM*100) 
+lblsPNM <- paste(lblsPNM,"%",sep="")
+
+lblsUNC <- paste(ethnicities, supportUNC*100) 
+lblsUNC <- paste(lblsUNC,"%",sep="")
+
+lblsCOP <- paste(ethnicities, supportCOP*100) 
+lblsCOP <- paste(lblsCOP,"%",sep="")
+
+lblsTOP <- paste(ethnicities, supportTOP*100) 
+lblsTOP <- paste(lblsTOP,"%",sep="")
+
+```
+
+
+```{r}
+pie(supportPNM, labels=lblsPNM, col=rainbow(length(ethnicities)), main = "Ethnic Vote Breakdown of PNM")
+
+pie(supportUNC, labels=lblsUNC, col=rainbow(length(ethnicities)), main = "Ethnic Vote Breakdown of UNC")
+
+pie(supportCOP, labels=lblsCOP, col=rainbow(length(ethnicities)), main = "Ethnic Vote Breakdown of COP")
+
+pie(supportTOP, labels=lblsTOP, col=rainbow(length(ethnicities)), main = "Ethnic Vote Breakdown of TOP")
+```
+
+```{r}
+# black representation to census representation
+
+afroVoteBreakdown
+
+sum(afroVoteBreakdown)
+
+expectedAfroSeat <- supportPNM[1]*12 + supportUNC[1]*21 + supportCOP[1]*6 + supportTOP[1]*2
+
+expectedIndoSeat <- supportPNM[2]*12 + supportUNC[2]*21 + supportCOP[2]*6 + supportTOP[2]*2
+
+expectedMixedSeat <- supportPNM[3]*12 + supportUNC[3]*21 + supportCOP[3]*6 + supportTOP[3]*2
+
+expectedAfroSeat
+
+expectedIndoSeat
+
+expectedMixedSeat
+
+expectedAfroSeat/41
+
+expectedIndoSeat/41
+
+expectedMixedSeat/41
+
+expectedSeats <- c(expectedAfroSeat/41, expectedIndoSeat/41, expectedMixedSeat/41)
+
+expectedSeatTotals <- c(expectedAfroSeat, expectedIndoSeat, expectedMixedSeat)
+
+expectedSeatTotals <- paste("Expected Seats:", round(expectedSeatTotals,0), ",", sep="")
+
+supportUNC[1]
+
+```
+
+```{r}
+lblsExpected <- paste(ethnicities, expectedSeatTotals, round(expectedSeats*98.1,2)) 
+lblsExpected <- paste(lblsExpected,"%",sep="")
+```
+
+
+```{r}
+pie(expectedSeats, labels=lblsExpected, col=rainbow(length(ethnicities)), main = "Expected Seat Representation Based on Vote Totals")
+```
+```{r}
+censusRepresentation <- c(.363, .376, .242)
+
+
+censusAfroSeat <- censusRepresentation[1]*41
+
+censusIndoSeat <- censusRepresentation[2]*41
+
+censusMixedSeat <- censusRepresentation[3]*41
+
+censusAfroSeat
+
+censusIndoSeat
+
+censusMixedSeat
+
+censusAfroSeat/41
+
+censusIndoSeat/41
+
+censusMixedSeat/41
+
+censusSeats <- c(censusAfroSeat/41, censusIndoSeat/41, censusMixedSeat/41)
+
+censusSeatTotals <- c(censusAfroSeat, censusIndoSeat, censusMixedSeat)
+
+cencusSeatTotals2 <- paste("Expected Seats:", round(censusSeatTotals,0), ",", sep="")
+
+cencusSeatTotals2
+
+```
+
+
+```{r}
+lblsCensus <- paste(ethnicities, cencusSeatTotals2, round(censusSeats*100,2)) 
+lblsCensus <- paste(lblsCensus,"%",sep="")
+
+lblsCensus
+```
+
+```{r}
+pie(censusSeats, labels=lblsCensus, col=rainbow(length(ethnicities)), main = "Expected Seat Representation Based on Census Totals")
+```
